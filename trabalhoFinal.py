@@ -222,9 +222,9 @@ def menu_alunos(turma):
         elif opcao == "6":
             pass
         elif opcao == "0":
-            g = input("Guardar alterações (s/n)? ").lower()
+            guardar_alteracoes = input("Guardar alterações (s/n)? ").lower() == 's'
 
-            if g == "s":
+            if guardar_alteracoes:
                 turma.salvar()
         else:
             print("ERRO!!! Escolha uma opção válida")
