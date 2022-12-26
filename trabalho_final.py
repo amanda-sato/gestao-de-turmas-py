@@ -109,6 +109,7 @@ def menu_turma():
         print("*******************************")
 
         opcao = input("\nOpção:")
+        system('cls')
 
         if opcao == "1":
             add_turma()
@@ -129,9 +130,6 @@ def menu_turma():
             return
         else:
             print("ERRO!!! Escolha uma opção válida")
-
-        input("Aperte qualquer tecla para continuar.")
-        system('cls')
 
 def add_turma():
     id_turma = input("Digite o nome da turma: ")
@@ -164,7 +162,7 @@ def editar_turma():
     if id_turma != old_id_turma:
         # Fica mais fácil remover a turma a partir de uma instância da própria classe Turma.
         # já que ela contém métodos e propriedades que "sabem" onde uma Turma é salva.
-        turmas_deletadas.append(Turma(old_id_turma)) 
+        turmas_deletadas.append(Turma(old_id_turma))
 
     turmas[indice].id_turma = id_turma
 
