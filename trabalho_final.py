@@ -67,10 +67,25 @@ class Turma:
         return f'Turma({id_turma=}, {alunos=})'
 
 class Aluno:
-    def __init__(self, nome, genero, matricula = ''):
+    def __init__(self, nome, genero, matricula = '', notas = None):
         self.nome = nome
         self.genero = genero
         self.matricula = matricula
+
+        if notas is None:
+            self.notas = {}
+        else:
+            self.notas = notas
+
+    def add_nota(self, disciplina, nota):
+        self.notas[disciplina] = nota
+
+    def rm_nota(self, disciplina):
+        del self.notas[disciplina]
+
+    def imprimir_notas(self):
+        for disciplina, nota in self.notas.items():
+            print(f"{disciplina}: {nota}")
 
     def __str__(self):
         return f'{self.nome}, {self.genero}, {self.matricula}'
@@ -134,7 +149,7 @@ class Grade:
         return len(self.disciplinas)
 
     def __str__(self):
-        return "\n".join(f"- {d}" for d in self.disciplinas)
+        return "\n".join(f"{i + 1}- {d}" for i, d in enumerate(self.disciplinas))
 
     def __repr__(self):
         return f"Disciplina(id={self.id}, disciplinas={self.disciplinas})"
@@ -372,8 +387,7 @@ def menu_alunos(turma):
         print("2) Remover Aluno")
         print("3) Mostrar lista de alunos")
         print("4) Qual aluno deseja editar as informações? ")
-        print("5) Qual a média das notas dos alunos da turma? ")
-        print("6) Qual a média ")
+        print("5) Adicionar notas")
         print("0) Retornar ao menu de turmas")
         print("*******************************")
 
@@ -389,9 +403,10 @@ def menu_alunos(turma):
         elif opcao == "4":
             editar_aluno(turma)
         elif opcao == "5":
-            pass
-        elif opcao == "6":
-            pass
+            turma.mostrar()
+            indice = int(input("\nIndique o aluno? ")) - 1
+            aluno = turma.get_aluno(indice)
+            menu_notas(aluno)
         elif opcao == "0":
             guardar_alteracoes = input("Guardar alterações (s/n)? ").lower() == 's'
 
@@ -443,6 +458,37 @@ def editar_aluno(turma):
 
         print("\nNova lista de alunos: \n")
         turma.mostrar()
+
+def menu_notas(aluno):
+    opcao = ""
+    while opcao != "0":
+
+        print("\n*******************************")
+        print(f"Menu {aluno.nome}: \n")
+        print("1) Adicionar Nota")
+        print("2) Editar Nota")
+        print("3) Remover Nota")
+        print("3) Listar notas")
+        print("0) Retornar ao menu de alunos")
+        print("*******************************")
+
+        opcao = input("\nOpção:")
+        system("cls")
+
+        if opcao == "1":
+            indice = selecionar_disciplina()
+            nota = input("Indique a nota: ")
+            aluno.add_nota(disciplinas[indice], nota)
+        elif opcao == "2":
+            indice = selecionar_disciplina()
+            nota = input("Indique a nota: ")
+            aluno.add_nota(disciplinas[indice], nota)
+        elif opcao == "3":
+            aluno.imprimir_notas()
+        elif opcao == "0":
+            return
+        else:
+            print("ERRO!!! Escolha uma opção válida")
 
 if __name__ == '__main__':
     main()
