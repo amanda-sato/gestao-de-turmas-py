@@ -49,8 +49,8 @@ class Turma:
             linha = f.readline()
 
             while linha != "":
-                nome, genero, matricula = linha.strip().split(" | ")
-                self.add(Aluno(nome, genero, matricula))
+                nome, genero, matricula, notas = linha.strip().split(" | ")
+                self.add(Aluno(nome, genero, matricula, eval(notas)))
                 linha = f.readline()
 
             f.close()
@@ -100,7 +100,7 @@ class Aluno:
         return f"Aluno({self.nome}, {self.genero}, {self.matricula})"
 
     def str_ficheiro(self):
-        return self.nome + " | " + self.genero + " | " + str(self.matricula) + "\n"
+        return self.nome + " | " + self.genero + " | " + str(self.matricula) + " | " + repr(self.notas) + "\n"
 
 class Grade:
     CAMINHO = "grades"
