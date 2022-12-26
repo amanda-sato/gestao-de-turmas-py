@@ -3,9 +3,10 @@ from os import system
 import glob
 
 class Turma:
+    CAMINHO = 'turmas'
+
     def __init__(self, id_turma, alunos = None):
         self.id_turma = id_turma
-        self.ficheiro = f"{self.id_turma}.txt"
 
         if alunos is None:
             self.alunos = []
@@ -22,14 +23,18 @@ class Turma:
         self.alunos[indice] = aluno
 
     def mostrar(self):
-        for i in range(len(self.alunos)):
-            print(str(i+1) + " - " + self.alunos[i].StringFicheiro(), end="")
+        for i, aluno in enumerate(self.alunos):
+            print(i + 1, '-', aluno)
 
     def salvar(self):
         f = open(self.ficheiro, "w", encoding="utf-8")
 
         for p in self.alunos:
-            f.write(p.StringFicheiro())
+            f.write(p.str_ficheiro())
+
+    @property # Faz com que o método possa ser chamado como se um atributo fosse.
+    def ficheiro(self):
+        return f"{Turma.CAMINHO}/{self.id_turma}.txt"
 
     def carregar(self):
         if os.path.isfile(self.ficheiro):
@@ -42,6 +47,10 @@ class Turma:
                 linha = f.readline()
 
             f.close()
+
+    def deletar(self):
+        if os.path.isfile(self.ficheiro):
+            os.remove(self.ficheiro)
 
     def __str__(self):
         return f'Turma {self.id_turma}'
@@ -59,7 +68,7 @@ class Aluno:
         self.media = media
 
     def __str__(self):
-        return self.nome + " " + self.genero + " " + str(self.matricula) + " " + str(self.media)
+        return f'{self.nome}, {self.genero}, {self.matricula}, {self.media}'
 
     # Retorna a representação de um objeto como string
     # >>> aluno = Aluno('Max', 'M', '0001', 20)
@@ -70,24 +79,22 @@ class Aluno:
     def __repr__(self):
         return f"Aluno({self.nome}, {self.genero}, {self.matricula}, {self.media})"
 
-    def StringFicheiro(self):
+    def str_ficheiro(self):
         return self.nome + " | " + self.genero + " | " + str(self.matricula) + " | " + str(self.media) + "\n"
 
-# system("cls")
-
-# alunos = []
-# turma = Turma(alunos)
 turmas = []
+turmas_deletadas = []
 
 def main():
+    carregar_turmas()
     menu_turma()
 
 def nao_implementado():
     print("TEM QUE IMPLEMENTAR DEPOIS HEIN!")
 
 def menu_turma():
-
     opcao = ""
+
     while opcao != "0":
         print("\n*******************************")
         print("Menu Turmas: \n")
@@ -95,9 +102,9 @@ def menu_turma():
         print("2) Remover Turma")
         print("3) Listar turmas")
         print("4) Editar Turma ")
-        print("5) Carregar Turma")
-        print("6) Qual a média das notas dos alunos por Turma? ")
-        print("7) Administrar alunos")
+        print("5) Qual a média das notas dos alunos por Turma? ")
+        print("6) Administrar alunos")
+        print("7) Salvar alterações")
         print("0) Sair")
         print("*******************************")
 
@@ -112,12 +119,12 @@ def menu_turma():
         elif opcao == "4":
             editar_turma()
         elif opcao == "5":
-            carregar_turma()
-        elif opcao == "6":
             nao_implementado()
-        elif opcao == "7" and not turmas_vazia():
+        elif opcao == "6" and not turmas_vazia():
             indice = selecionar_turma()
             menu_alunos(turmas[indice])
+        elif opcao == "7":
+            salvar_turmas()
         elif opcao == "0":
             return
         else:
@@ -134,6 +141,7 @@ def remove_turma():
     if turmas_vazia(): return
 
     indice = selecionar_turma()
+    turmas_deletadas.append(Turma(turmas[indice].id_turma))
     turmas.pop(indice)
 
 def listar_turmas():
@@ -148,15 +156,21 @@ def editar_turma():
     if turmas_vazia(): return
 
     indice = selecionar_turma()
+
     id_turma = input('Indique o novo nome da turma: ')
+
+    old_id_turma = turmas[indice].id_turma
+
+    if id_turma != old_id_turma:
+        # Fica mais fácil remover a turma a partir de uma instância da própria classe Turma.
+        # já que ela contém métodos e propriedades que "sabem" onde uma Turma é salva.
+        turmas_deletadas.append(Turma(old_id_turma)) 
 
     turmas[indice].id_turma = id_turma
 
-def carregar_turma():
-    seletor = input('Digite o nome da turma (* - para todas): ')
-
-    for ficheiro in glob.glob(f'{seletor}.txt'):
-        id_turma = ficheiro.rstrip('.txt')
+def carregar_turmas():
+    for ficheiro in glob.glob(f'{Turma.CAMINHO}/*.txt'):
+        id_turma = os.path.basename(ficheiro).rstrip('.txt')
 
         turma = Turma(id_turma)
         turma.carregar()
@@ -167,6 +181,13 @@ def carregar_turma():
             turmas.append(turma)
         else:
             turmas[indice] = turma
+
+def salvar_turmas():
+    for turma in turmas:
+        turma.salvar()
+
+    for turma_deletada in turmas_deletadas:
+        turma_deletada.deletar()
 
 def indice_de(id_turma):
     for indice, turma in enumerate(turmas):
@@ -235,8 +256,8 @@ def add_aluno(turma):
 
     print("\nInsira informações do novo aluno: \n")
     n = input("Nome: ")
-    g = input("Gênero (F/M): ")
-    mt = int(input("Matrícula: "))
+    g = input("Gênero (F/M): ").upper()
+    mt = input("Matrícula: ")
     md = input("Média: ")
 
     turma.add(Aluno(n,g,mt,md))
@@ -267,8 +288,8 @@ def editar_aluno(turma):
     else:
         print("Insira as novas informações do aluno: \n")
         n = input("Nome: ")
-        g = input("Gênero (F/M): ")
-        mt = int(input("Matrícula: "))
+        g = input("Gênero (F/M): ").upper()
+        mt = input("Matrícula: ")
         md = input("Média: ")
 
         turma.edit(indice, Aluno(n,g,mt,md))
