@@ -1,4 +1,4 @@
-Max | M | 123 | 17
-Leo | M | 963 | 20
-Amanda | F | 741 | 14
-Ana | F | 258 | 12
+Amanda | F | A0000#001
+Leo | M | A0000#002
+Max | M | A0000#003
+Ana | F | A0000#004

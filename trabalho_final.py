@@ -14,6 +14,8 @@ class Turma:
             self.alunos = alunos
 
     def add(self, aluno):
+        aluno.matricula = '#'.join(f'{self.id_turma[:5]:05}'.upper().split() + [f'{len(self.alunos) + 1:03}'])
+
         self.alunos.append(aluno)
 
     def delet(self, indice):
@@ -21,6 +23,9 @@ class Turma:
 
     def edit(self, indice, aluno):
         self.alunos[indice] = aluno
+
+    def get_aluno(self, indice):
+        return self.alunos[indice]
 
     def mostrar(self):
         for i, aluno in enumerate(self.alunos):
@@ -44,8 +49,8 @@ class Turma:
             linha = f.readline()
 
             while linha != "":
-                nome, genero, matricula, media = linha.strip().split(" | ")
-                self.add(Aluno(nome, genero, matricula, int(media)))
+                nome, genero, matricula = linha.strip().split(" | ")
+                self.add(Aluno(nome, genero, matricula))
                 linha = f.readline()
 
             f.close()
@@ -61,28 +66,26 @@ class Turma:
         id_turma, alunos = self.id_turma, self.alunos
         return f'Turma({id_turma=}, {alunos=})'
 
-
 class Aluno:
-    def __init__(self, nome, genero, matricula,media):
+    def __init__(self, nome, genero, matricula = ''):
         self.nome = nome
         self.genero = genero
         self.matricula = matricula
-        self.media = media
 
     def __str__(self):
-        return f'{self.nome}, {self.genero}, {self.matricula}, {self.media}'
+        return f'{self.nome}, {self.genero}, {self.matricula}'
 
     # Retorna a representação de um objeto como string
-    # >>> aluno = Aluno('Max', 'M', '0001', 20)
+    # >>> aluno = Aluno('Max', 'M', '0001')
     # >>> repr(alunuo)
-    # Aluno('Max', 'M', '0001', 20)
+    # Aluno('Max', 'M', '0001')
     # >>> aluno
-    # Aluno('Max', 'M', '0001', 20)
+    # Aluno('Max', 'M', '0001')
     def __repr__(self):
-        return f"Aluno({self.nome}, {self.genero}, {self.matricula}, {self.media})"
+        return f"Aluno({self.nome}, {self.genero}, {self.matricula})"
 
     def str_ficheiro(self):
-        return self.nome + " | " + self.genero + " | " + str(self.matricula) + " | " + str(self.media) + "\n"
+        return self.nome + " | " + self.genero + " | " + str(self.matricula) + "\n"
 
 class Grade:
     CAMINHO = "grades"
@@ -404,10 +407,8 @@ def add_aluno(turma):
     print("\nInsira informações do novo aluno: \n")
     n = input("Nome: ")
     g = input("Gênero (F/M): ").upper()
-    mt = input("Matrícula: ")
-    md = input("Média: ")
 
-    turma.add(Aluno(n,g,mt,md))
+    turma.add(Aluno(n, g))
 
     print("\nNova lista de alunos: \n")
     turma.mostrar()
@@ -428,7 +429,8 @@ def remove_aluno(turma):
 def editar_aluno(turma):
     turma.mostrar()
 
-    indice = int(input("\nQual o aluno quer editar as informações? ")) -1
+    indice = int(input("\nQual o aluno quer editar as informações? ")) - 1
+    old_aluno = turma.get_aluno(indice)
 
     if indice < 0 or indice >= len(turma.alunos):
         print("Erro! Digite uma opção válida")
@@ -436,10 +438,8 @@ def editar_aluno(turma):
         print("Insira as novas informações do aluno: \n")
         n = input("Nome: ")
         g = input("Gênero (F/M): ").upper()
-        mt = input("Matrícula: ")
-        md = input("Média: ")
 
-        turma.edit(indice, Aluno(n,g,mt,md))
+        turma.edit(indice, Aluno(n, g, old_aluno.matricula))
 
         print("\nNova lista de alunos: \n")
         turma.mostrar()
