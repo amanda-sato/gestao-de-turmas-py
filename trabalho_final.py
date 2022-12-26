@@ -32,6 +32,8 @@ class Turma:
         for p in self.alunos:
             f.write(p.str_ficheiro())
 
+        f.close()
+
     @property # Faz com que o método possa ser chamado como se um atributo fosse.
     def ficheiro(self):
         return f"{Turma.CAMINHO}/{self.id_turma}.txt"
@@ -82,12 +84,85 @@ class Aluno:
     def str_ficheiro(self):
         return self.nome + " | " + self.genero + " | " + str(self.matricula) + " | " + str(self.media) + "\n"
 
+class Grade:
+    CAMINHO = "grades"
+
+    def __init__(self, id, disciplinas = None):
+        self.id = id
+
+        if disciplinas is None:
+            self.disciplinas = []
+        else:
+            self.disciplinas = list(disciplinas)
+
+    def add(self, disciplina):
+        self.disciplinas.append(disciplina)
+
+    def salvar(self):
+        f = open(self.ficheiro, "w", encoding="utf-8")
+
+        for d in self.disciplinas: f.write(f"{d}\n")
+
+        f.close()
+
+    def carregar(self):
+        if os.path.isfile(self.ficheiro):
+            f = open(self.ficheiro, "r", encoding="utf-8") #define a formatação de como o python vai interpretar os bytes do arquivo.
+            linha = f.readline()
+
+            while linha != "":
+                nome  = linha.strip()
+                self.add(nome)
+                linha = f.readline()
+
+            f.close()
+
+    @property
+    def ficheiro(self):
+        return f"{Grade.CAMINHO}/{self.id}.txt"
+
+    def __setitem__(self, indice, disciplina):
+        self.disciplinas[indice] = disciplina
+
+    def __getitem__(self, indice):
+        return self.disciplinas[indice]
+
+    def __len__(self):
+        return len(self.disciplinas)
+
+    def __str__(self):
+        return "\n".join(f"- {d}" for d in self.disciplinas)
+
+    def __repr__(self):
+        return f"Disciplina(id={self.id}, disciplinas={self.disciplinas})"
+
 turmas = []
 turmas_deletadas = []
+disciplinas = Grade(id="Disciplinas")
 
 def main():
     carregar_turmas()
-    menu_turma()
+    disciplinas.carregar()
+
+    opcao = ""
+    while opcao != "0":
+        print("\n*******************************")
+        print("Menu")
+        print("1) Administrar Turmas")
+        print("2) Administrar Disciplinas")
+        print("0) Sair")
+
+        opcao = input("\nOpção: ")
+        system('cls')
+
+        if opcao == "1":
+            menu_turma()
+        elif opcao == "2":
+            menu_disciplinas()
+        elif opcao == "0":
+            return
+        else:
+            print("ERRO!!! Escolha uma opção válida")
 
 def nao_implementado():
     print("TEM QUE IMPLEMENTAR DEPOIS HEIN!")
@@ -108,7 +183,7 @@ def menu_turma():
         print("0) Sair")
         print("*******************************")
 
-        opcao = input("\nOpção:")
+        opcao = input("\nOpção: ")
         system('cls')
 
         if opcao == "1":
@@ -127,6 +202,11 @@ def menu_turma():
         elif opcao == "7":
             salvar_turmas()
         elif opcao == "0":
+            guardar_alteracoes = input("Guardar alterações (s/n)? ").lower() == 's'
+
+            if guardar_alteracoes:
+                salvar_turmas()
+
             return
         else:
             print("ERRO!!! Escolha uma opção válida")
@@ -186,6 +266,75 @@ def salvar_turmas():
 
     for turma_deletada in turmas_deletadas:
         turma_deletada.deletar()
+
+def menu_disciplinas():
+    opcao = ""
+    while opcao != "0":
+        print("\n*******************************")
+        print("Menu disciplinas:\n")
+        print("1) Adicionar Disciplina")
+        print("2) Editar Disciplina")
+        print("2) Remover Disciplina")
+        print("3) Listar Disciplinas")
+        print("4) Salvar Alterações")
+        print("0) Retonar ao menu de turmas")
+        print("*******************************")
+
+        opcao = input("\nOpção: ")
+        system("cls")
+
+        if opcao == "1":
+            add_disciplina()
+        elif opcao == "2":
+            editar_disciplina()
+        elif opcao == "3":
+            listar_disciplinas()
+        elif opcao == "4":
+            disciplinas.salvar()
+        elif opcao == "0":
+            guardar_alteracoes = input("Guardar alterações (s/n)? ").lower() == 's'
+
+            if guardar_alteracoes:
+                disciplinas.salvar()
+
+            return
+        else:
+            print("ERRO!!! Escolha uma opção válida")
+
+def add_disciplina():
+    nome = input("Digite um nome para a disciplina: ")
+
+    disciplinas.add(nome)
+
+def editar_disciplina():
+    if disciplinas_vazia(): return
+
+    indice = selecionar_disciplina()
+    nome = input("Indique o nome da disciplina: ")
+
+    disciplinas[indice] = nome
+
+def selecionar_disciplina():
+    if disciplinas_vazia(): return
+
+    listar_disciplinas()
+
+    indice = int(input('Indique a disciplina: ')) - 1
+
+    return indice
+
+def listar_disciplinas():
+    if disciplinas_vazia(): return
+
+    print('Disciplinas:')
+    print(disciplinas)
+
+def disciplinas_vazia():
+    if len(disciplinas) <= 0:
+        print('Nenhuma disciplina cadastrada.')
+        return True
+
+    return False
 
 def indice_de(id_turma):
     for indice, turma in enumerate(turmas):
