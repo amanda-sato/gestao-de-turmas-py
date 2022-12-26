@@ -387,7 +387,7 @@ def menu_alunos(turma):
         print("2) Remover Aluno")
         print("3) Mostrar lista de alunos")
         print("4) Qual aluno deseja editar as informações? ")
-        print("5) Adicionar notas")
+        print("5) Administrar notas")
         print("0) Retornar ao menu de turmas")
         print("*******************************")
 
