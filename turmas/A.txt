@@ -1,4 +1,4 @@
-Amanda | F | A0000#001 | {'Matemática': '20'}
-Leo | M | A0000#002 | {}
-Max | M | A0000#003 | {}
+Amanda | F | A0000#001 | {'Matemática': 20.0}
+Leo | M | A0000#002 | {'Matemática': '20', 'História': '17', 'Geografia': '14', 'Ed. Física': '12', 'Inglês': '20'}
+Max | M | A0000#003 | {'Matemática': '11', 'História': '14', 'Geografia': '10', 'Ed. Física': '10', 'Inglês': '10'}
 Ana | F | A0000#004 | {}

@@ -83,9 +83,21 @@ class Aluno:
     def rm_nota(self, disciplina):
         del self.notas[disciplina]
 
-    def imprimir_notas(self):
-        for disciplina, nota in self.notas.items():
-            print(f"{disciplina}: {nota}")
+    def imprimir_notas(self, grade = None):
+        disciplinas = self.notas.keys() if grade is None else grade
+
+        print("{:<12} {:>4}".format("Disciplinas", "Notas"))
+        print("{:<12} {:>4}".format("-----", "----"))
+
+        for disciplina in disciplinas:
+            nota = self.notas.get(disciplina, '')
+
+            if isinstance(nota, str):
+                str_nota = f"{nota:>4}"
+            else:
+                str_nota = f"{nota:>4.2f}"
+
+            print(f"{disciplina:<12} {str_nota}")
 
     def __str__(self):
         return f'{self.nome}, {self.genero}, {self.matricula}'
@@ -467,7 +479,6 @@ def menu_notas(aluno):
         print(f"Menu {aluno.nome}: \n")
         print("1) Adicionar Nota")
         print("2) Editar Nota")
-        print("3) Remover Nota")
         print("3) Listar notas")
         print("0) Retornar ao menu de alunos")
         print("*******************************")
@@ -484,7 +495,7 @@ def menu_notas(aluno):
             nota = input("Indique a nota: ")
             aluno.add_nota(disciplinas[indice], nota)
         elif opcao == "3":
-            aluno.imprimir_notas()
+            aluno.imprimir_notas(disciplinas)
         elif opcao == "0":
             return
         else:

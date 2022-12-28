@@ -6,6 +6,7 @@
 - [x] Salvar alterações de turmas (excluindo turmas que foram deletadas)
 - [x] Administração disciplinas
 - [x] Colocar p/ gerar matrículas dos alunos
-- [ ] Administração das notas dos alunos, nas disciplinas
-- [ ] Fazer tratamento de erros
+- [x] Administração das notas dos alunos, nas disciplinas
+- [ ] Separar arquivos
 - [ ] Apresentar, de forma automática, a lista de alunos aprovados e taxas de reprovação p/ cada disciplina
+- [ ] Fazer tratamento de erros
