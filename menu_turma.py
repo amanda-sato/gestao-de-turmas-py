@@ -2,11 +2,8 @@ import glob
 import os
 from os import system
 from menu_aluno import menu_alunos
-from menu_disciplina import relacao_de_aprovados
 from turma import Turma
-
-turmas = []
-turmas_deletadas = []
+from dados import turmas, turmas_deletadas, disciplinas
 
 def menu_turma():
     opcao = ""
@@ -146,3 +143,18 @@ def media_geral_por_aluno():
                 media = f"{aluno.media_geral():>10.2f}"
             
             print(f"{turma.id_turma:<8} {aluno.nome:>17} {media}")
+
+def relacao_de_aprovados():
+    formato = '{:<12} {:>12} {:>20} {:>12}'
+
+    print(formato.format('Disciplina', 'Turma', 'Aluno', 'Situação'))
+
+    for disciplina in disciplinas:
+        for turma in turmas:
+            for aluno in turma.alunos:
+                print(formato.format(
+                    disciplina,
+                    turma.id_turma,
+                    aluno.nome,
+                    aluno.situacao(disciplina)
+                ))

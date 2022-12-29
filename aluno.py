@@ -15,16 +15,19 @@ class Aluno:
     def rm_nota(self, disciplina):
         del self.notas[disciplina]
 
-    def situacao(self, disciplina):
+    def aprovado(self, disciplina):
+        if disciplina in self.notas:
+            return self.notas[disciplina] >= 10
+
+        return -1
+
+    def situacao(self):
         x = ('o' if self.genero == 'M' else 'a')
 
-        if disciplina in self.notas and self.notas[disciplina] >= 10.0:
-            return f'Aprovad{x}'
-
-        if disciplina in self.notas:
-            return f'Reprovad{x}'
-
-        return ''
+        if self.aprovado() == -1: 
+            return ''
+        
+        return f'Aprovad{x}' if self.aprovado() else f'Reprovad{x}'
 
     def media_geral(self):
         if not self.notas:
