@@ -23,8 +23,14 @@ class Aluno:
 
         if disciplina in self.notas:
             return f'Reprovad{x}'
-        
+
         return ''
+
+    def media_geral(self):
+        if not self.notas:
+            return -1
+
+        return sum(self.notas.values()) / len(self.notas)
 
     def imprimir_notas(self, grade = None):
         disciplinas = self.notas.keys() if grade is None else grade

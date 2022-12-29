@@ -9,7 +9,7 @@
 - [x] Administração das notas dos alunos, nas disciplinas
 - [x] Separar arquivos
 - [x] Listar relação de alunos aprovados/reprovados
-- [ ] Média geral por aluno
+- [x] Média geral por aluno
 - [ ] Apresentar, de forma automática, taxas de reprovação p/ cada disciplina
 - [ ] Exit global (Botão do pânico ⚠️💀⚠️)
 - [ ] Fazer tratamento de erros

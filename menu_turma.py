@@ -19,8 +19,9 @@ def menu_turma():
         print("3) Listar turmas")
         print("4) Editar Turma ")
         print("5) Relação de alunos aprovados e reprovados")
-        print("6) Administrar alunos")
-        print("7) Salvar alterações")
+        print("6) Média geral por aluno")
+        print("7) Administrar alunos")
+        print("8) Salvar alterações")
         print("0) Sair")
         print("*******************************")
 
@@ -37,10 +38,12 @@ def menu_turma():
             editar_turma()
         elif opcao == "5":
             relacao_de_aprovados(turmas)
-        elif opcao == "6" and not turmas_vazia():
+        elif opcao == "6":
+            media_geral_por_aluno()
+        elif opcao == "7" and not turmas_vazia():
             indice = selecionar_turma()
             menu_alunos(turmas[indice])
-        elif opcao == "7":
+        elif opcao == "8":
             salvar_turmas()
         elif opcao == "0":
             guardar_alteracoes = input("Guardar alterações (s/n)? ").lower() == 's'
@@ -131,5 +134,15 @@ def turmas_vazia():
 
     return False
 
-def nao_implementado():
-    print("TEM QUE IMPLEMENTAR DEPOIS HEIN!")
+def media_geral_por_aluno():
+    print(f"{'Turma':<8} {'Aluno':>17} {'M. Geral':>10}")
+    print(f"{'---':<8} {'---':>17} {'---':>10}")
+
+    for turma in turmas:
+        for aluno in turma.alunos:
+            if aluno.media_geral() < 0:
+                media = f"{'':>10}"
+            else:
+                media = f"{aluno.media_geral():>10.2f}"
+            
+            print(f"{turma.id_turma:<8} {aluno.nome:>17} {media}")
