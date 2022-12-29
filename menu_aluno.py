@@ -103,11 +103,11 @@ def menu_notas(aluno):
 
         if opcao == "1":
             indice = selecionar_disciplina()
-            nota = input("Indique a nota: ")
+            nota = float(input("Indique a nota: "))
             aluno.add_nota(disciplinas[indice], nota)
         elif opcao == "2":
             indice = selecionar_disciplina()
-            nota = input("Indique a nota: ")
+            nota = float(input("Indique a nota: "))
             aluno.add_nota(disciplinas[indice], nota)
         elif opcao == "3":
             aluno.imprimir_notas(disciplinas)

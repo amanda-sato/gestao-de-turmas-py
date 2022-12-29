@@ -8,7 +8,8 @@
 - [x] Colocar p/ gerar matrículas dos alunos
 - [x] Administração das notas dos alunos, nas disciplinas
 - [x] Separar arquivos
-- [ ] Listar relação de alunos aprovados/reprovados e médias
+- [x] Listar relação de alunos aprovados/reprovados
+- [ ] Média geral por aluno
 - [ ] Apresentar, de forma automática, taxas de reprovação p/ cada disciplina
 - [ ] Exit global (Botão do pânico ⚠️💀⚠️)
 - [ ] Fazer tratamento de erros

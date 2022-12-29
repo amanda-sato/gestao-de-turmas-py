@@ -15,6 +15,17 @@ class Aluno:
     def rm_nota(self, disciplina):
         del self.notas[disciplina]
 
+    def situacao(self, disciplina):
+        x = ('o' if self.genero == 'M' else 'a')
+
+        if disciplina in self.notas and self.notas[disciplina] >= 10.0:
+            return f'Aprovad{x}'
+
+        if disciplina in self.notas:
+            return f'Reprovad{x}'
+        
+        return ''
+
     def imprimir_notas(self, grade = None):
         disciplinas = self.notas.keys() if grade is None else grade
 

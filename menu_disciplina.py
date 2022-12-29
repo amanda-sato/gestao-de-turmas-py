@@ -74,3 +74,18 @@ def disciplinas_vazia():
 
 def carregar_disciplinas():
     disciplinas.carregar()
+
+def relacao_de_aprovados(turmas):
+    formato = '{:<12} {:>12} {:>20} {:>12}'
+
+    print(formato.format('Disciplina', 'Turma', 'Aluno', 'Situação'))
+
+    for disciplina in disciplinas:
+        for turma in turmas:
+            for aluno in turma.alunos:
+                print(formato.format(
+                    disciplina,
+                    turma.id_turma,
+                    aluno.nome,
+                    aluno.situacao(disciplina)
+                ))

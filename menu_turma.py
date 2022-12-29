@@ -2,6 +2,7 @@ import glob
 import os
 from os import system
 from menu_aluno import menu_alunos
+from menu_disciplina import relacao_de_aprovados
 from turma import Turma
 
 turmas = []
@@ -17,7 +18,7 @@ def menu_turma():
         print("2) Remover Turma")
         print("3) Listar turmas")
         print("4) Editar Turma ")
-        print("5) Qual a média das notas dos alunos por Turma? ")
+        print("5) Relação de alunos aprovados e reprovados")
         print("6) Administrar alunos")
         print("7) Salvar alterações")
         print("0) Sair")
@@ -35,7 +36,7 @@ def menu_turma():
         elif opcao == "4":
             editar_turma()
         elif opcao == "5":
-            nao_implementado()
+            relacao_de_aprovados(turmas)
         elif opcao == "6" and not turmas_vazia():
             indice = selecionar_turma()
             menu_alunos(turmas[indice])
