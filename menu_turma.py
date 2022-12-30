@@ -51,18 +51,10 @@ def menu_turma():
         elif opcao == "9":
             salvar_turmas()
         elif opcao == "10":
-            guardar_alteracoes = input("Guardar alterações (s/n)? ").lower() == 's'
-
-            if guardar_alteracoes:
-                salvar_turmas()
-
+            guardar_alteracoes()
             return
         elif opcao == "0":
-            guardar_alteracoes = input("Guardar alterações (s/n)? ").lower() == 's'
-
-            if guardar_alteracoes:
-                salvar_turmas()
-
+            guardar_alteracoes()
             sys.exit()
         else:
             print("ERRO!!! Escolha uma opção válida")
@@ -137,6 +129,9 @@ def selecionar_turma():
 
     indice = int(input('Indique a turma: ')) - 1
 
+    while indice < 0 or indice >= len(disciplinas):
+        indice = int(input('Indique a turma: ')) - 1
+
     return indice
 
 def turmas_vazia():
@@ -197,3 +192,9 @@ def taxa_de_aprovacao():
             sumario[situacao] = contagem / total
 
         print(f"{trunca(disciplina, 15):<15} {sumario[Aluno.APROVADO]:>15.2%} {sumario[Aluno.REPROVADO]:>15.2%} {sumario[Aluno.SEM_DADOS]:>15.2%}")
+
+def guardar_alteracoes():
+    guardar_alteracoes = input("Guardar alterações (s/n)? ").lower() == 's'
+
+    if guardar_alteracoes:
+        salvar_turmas()

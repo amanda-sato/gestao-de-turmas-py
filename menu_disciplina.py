@@ -23,7 +23,6 @@ def menu_disciplinas():
             listar_disciplinas()
             add_disciplina()
         elif opcao == "2":
-            listar_disciplinas()
             editar_disciplina()
         elif opcao == "3":
             remove_disciplina()
@@ -32,17 +31,10 @@ def menu_disciplinas():
         elif opcao == "5":
             disciplinas.salvar()
         elif opcao == "6":
-            guardar_alteracoes = input("Guardar alterações (s/n)? ").lower() == 's'
-
-            if guardar_alteracoes:
-                disciplinas.salvar()
-
+            guardar_alteracoes()
             return
         elif opcao == "0":
-            guardar_alteracoes = input("Guardar alterações (s/n)? ").lower() == 's'
-
-            if guardar_alteracoes:
-                disciplinas.salvar()
+            guardar_alteracoes()
             sys.exit()
         else:
             print("ERRO!!! Escolha uma opção válida")
@@ -67,6 +59,9 @@ def selecionar_disciplina():
 
     indice = int(input('Indique a disciplina: ')) - 1
 
+    while indice < 0 or indice >= len(disciplinas):
+        indice = int(input('Indique a disciplina: ')) - 1
+
     return indice
 
 def listar_disciplinas():
@@ -85,7 +80,6 @@ def disciplinas_vazia():
 def carregar_disciplinas():
     disciplinas.carregar()
 
-
 def remove_disciplina():
     listar_disciplinas()
 
@@ -98,3 +92,9 @@ def remove_disciplina():
 
     print("\nNova lista de alunos: \n")
     listar_disciplinas()
+
+def guardar_alteracoes():
+    guardar_alteracoes = input("Guardar alterações (s/n)? ").lower() == 's'
+
+    if guardar_alteracoes:
+        disciplinas.salvar()

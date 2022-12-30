@@ -16,7 +16,7 @@ def menu_alunos(turma):
         print("4) Qual aluno deseja editar as informações? ")
         print("5) Administrar notas")
         print("6) Retornar ao menu de turmas")
-        print("0) Encerrar programa") 
+        print("0) Encerrar programa")
         print("*******************************")
 
         opcao = input("\nOpção: ")
@@ -57,7 +57,7 @@ def add_aluno(turma):
 
     print("\nInsira informações do novo aluno: \n")
     n = input("Nome: ")
-    g = input("Gênero (F/M): ").upper()
+    g = informar_genero()
 
     turma.add(Aluno(n, g))
 
@@ -88,12 +88,20 @@ def editar_aluno(turma):
     else:
         print("Insira as novas informações do aluno: \n")
         n = input("Nome: ")
-        g = input("Gênero (F/M): ").upper()
+        g = informar_genero()
 
         turma.edit(indice, Aluno(n, g, old_aluno.matricula))
 
         print("\nNova lista de alunos: \n")
         turma.mostrar()
+
+def informar_genero():
+    g = input("Gênero (F/M): ")
+
+    while g.upper() not in ('F', 'M'):
+        g = input("Gênero (F/M): ")
+
+    return g
 
 def menu_notas(aluno):
     opcao = ""
@@ -110,16 +118,22 @@ def menu_notas(aluno):
         system("cls")
 
         if opcao == "1":
-            indice = selecionar_disciplina()
-            nota = float(input("Indique a nota: "))
-            aluno.add_nota(disciplinas[indice], nota)
+            informar_nota(aluno)
         elif opcao == "2":
-            indice = selecionar_disciplina()
-            nota = float(input("Indique a nota: "))
-            aluno.add_nota(disciplinas[indice], nota)
+            informar_nota(aluno)
         elif opcao == "3":
             aluno.imprimir_notas(disciplinas)
         elif opcao == "0":
             return
         else:
             print("ERRO!!! Escolha uma opção válida")
+
+def informar_nota(aluno):
+    indice = selecionar_disciplina()
+
+    nota = float(input("Indique a nota: "))
+
+    while nota < 0 or nota >= 20:
+        nota = float(input("Indique a nota: "))
+
+    aluno.add_nota(disciplinas[indice], nota)

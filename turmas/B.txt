@@ -4,3 +4,4 @@ Cristiano Ronaldo | M | B0000#003 | {}
 Fabiana | F | B0000#004 | {}
 Joana D'Arc | F | B0000#005 | {'Matemática': 5.0, 'História': 3.0, 'Geografia': 4.0, 'Ed. Física': 20.0, 'Inglês': 15.0}
 Elsa | F | B0000#006 | {}
+João Pé de Feijão | M | B0000#007 | {}
