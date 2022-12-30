@@ -1,5 +1,14 @@
 # Gestão de turmas PY
 
+## Como executar
+
+A partir da pasta raiz do repositório, execute:
+
+```shell
+$ python app_principal.py
+```
+  
+
 ## TODO
 
 - [x] Na lista de turmas: fazer o carregamento assim que abrir o programa
