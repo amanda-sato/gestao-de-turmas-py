@@ -2,10 +2,11 @@
 
 ## Como executar
 
-A partir da pasta raiz do repositório, execute:
+A partir da pasta raiz do repositório, execute (requer o python 3):
 
 ```shell
-$ python app_principal.py
+$ python app_principal.py # ou
+$ python3 app_principal.py 
 ```
   
 
