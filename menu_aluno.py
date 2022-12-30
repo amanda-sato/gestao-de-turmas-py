@@ -1,5 +1,5 @@
 from os import system
-
+import sys
 from aluno import Aluno
 from menu_disciplina import selecionar_disciplina
 from menu_disciplina import disciplinas
@@ -15,7 +15,8 @@ def menu_alunos(turma):
         print("3) Mostrar lista de alunos")
         print("4) Qual aluno deseja editar as informações? ")
         print("5) Administrar notas")
-        print("0) Retornar ao menu de turmas")
+        print("6) Retornar ao menu de turmas")
+        print("0) Encerrar programa") 
         print("*******************************")
 
         opcao = input("\nOpção: ")
@@ -34,11 +35,19 @@ def menu_alunos(turma):
             indice = int(input("\nIndique o aluno? ")) - 1
             aluno = turma.get_aluno(indice)
             menu_notas(aluno)
+        elif opcao == "6":
+            guardar_alteracoes = input("Guardar alterações (s/n)? ").lower() == 's'
+
+            if guardar_alteracoes:
+                turma.salvar()
         elif opcao == "0":
             guardar_alteracoes = input("Guardar alterações (s/n)? ").lower() == 's'
 
             if guardar_alteracoes:
                 turma.salvar()
+
+            sys.exit()
+
         else:
             print("ERRO!!! Escolha uma opção válida")
 

@@ -14,6 +14,7 @@ def main():
         print("1) Administrar Turmas")
         print("2) Administrar Disciplinas")
         print("0) Sair")
+        print("*******************************")
 
         opcao = input("\nOpção: ")
         system('cls')

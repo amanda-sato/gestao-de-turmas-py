@@ -4,6 +4,7 @@ from os import system
 from menu_aluno import menu_alunos
 from turma import Turma
 from dados import turmas, turmas_deletadas, disciplinas
+import sys
 
 def menu_turma():
     opcao = ""
@@ -19,7 +20,8 @@ def menu_turma():
         print("6) Média geral por aluno")
         print("7) Administrar alunos")
         print("8) Salvar alterações")
-        print("0) Sair")
+        print("9) Retornar ao menu anterior")
+        print("0) Encerrar programa")
         print("*******************************")
 
         opcao = input("\nOpção: ")
@@ -42,13 +44,20 @@ def menu_turma():
             menu_alunos(turmas[indice])
         elif opcao == "8":
             salvar_turmas()
-        elif opcao == "0":
+        elif opcao == "9":
             guardar_alteracoes = input("Guardar alterações (s/n)? ").lower() == 's'
 
             if guardar_alteracoes:
                 salvar_turmas()
 
             return
+        elif opcao == "0":
+            guardar_alteracoes = input("Guardar alterações (s/n)? ").lower() == 's'
+
+            if guardar_alteracoes:
+                salvar_turmas()
+
+            sys.exit()
         else:
             print("ERRO!!! Escolha uma opção válida")
 

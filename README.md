@@ -12,4 +12,5 @@
 - [x] Média geral por aluno
 - [ ] Apresentar, de forma automática, taxas de reprovação p/ cada disciplina
 - [ ] Exit global (Botão do pânico ⚠️💀⚠️)
-- [ ] Fazer tratamento de erros
+- [ ] Fazer tratamento de erros][
+- [ ] Implementar __delitem__ no grade.py (classe grade)
