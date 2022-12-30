@@ -13,4 +13,4 @@
 - [x] Implementar __delitem__ no grade.py (classe grade)
 - [x] Exit global (Botão do pânico ⚠️💀⚠️)
 - [x] Apresentar, de forma automática, taxas de reprovação p/ cada disciplina
-- [ ] Fazer tratamento de erros
+- [x] Fazer tratamento de erros
