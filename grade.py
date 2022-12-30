@@ -1,7 +1,7 @@
 import os
 
 class Grade:
-    CAMINHO = "grades"
+    CAMINHO = "grades" #constante de classe
 
     def __init__(self, id, disciplinas = None):
         self.id = id
@@ -33,7 +33,7 @@ class Grade:
 
             f.close()
 
-    @property
+    @property # faz com que o método possa ser acessado como se propriedade fosse.
     def ficheiro(self):
         return f"{Grade.CAMINHO}/{self.id}.txt"
 
@@ -47,7 +47,19 @@ class Grade:
         return len(self.disciplinas)
 
     def __str__(self):
-        return "\n".join(f"{i + 1} - {d}" for i, d in enumerate(self.disciplinas))
+        lista = []
+
+        # Gera lista de disciplinas.
+        # enumerate gera uma lista de tuplas, cada uma com dois elementos
+        # exemplo:
+        # [(0, 'Matemática'), ..., (5, 'História')]
+        # 
+        for indice, disciplina in enumerate(self.disciplinas):
+            lista += [f"{indice + 1} - {disciplina}"]
+
+        # Gera uma string com todos os elementos de lista, 
+        # concatenados e separados por '\n'
+        return "\n".join(lista)
 
     def __repr__(self):
         return f"Disciplina(id={self.id}, disciplinas={self.disciplinas})"
