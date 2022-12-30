@@ -98,7 +98,6 @@ def editar_aluno(turma):
 def menu_notas(aluno):
     opcao = ""
     while opcao != "0":
-
         print("\n*******************************")
         print(f"Menu {aluno.nome}: \n")
         print("1) Adicionar Nota")

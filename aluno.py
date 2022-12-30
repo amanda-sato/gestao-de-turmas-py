@@ -1,4 +1,12 @@
+from utils import trunca
+
+
 class Aluno:
+    # Atributos de classe
+    SEM_DADOS = 'sem_dados'
+    APROVADO = 'aprovado'
+    REPROVADO = 'reprovado'
+
     def __init__(self, nome, genero, matricula = '', notas = None):
         self.nome = nome
         self.genero = genero
@@ -15,19 +23,25 @@ class Aluno:
     def rm_nota(self, disciplina):
         del self.notas[disciplina]
 
-    def aprovado(self, disciplina):
-        if disciplina in self.notas:
-            return self.notas[disciplina] >= 10
+    def situacao(self, disciplina):
+        if disciplina not in self.notas:
+            return Aluno.SEM_DADOS
 
-        return -1
+        if self.notas[disciplina] >= 10.0:
+            return Aluno.APROVADO
 
-    def situacao(self):
-        x = ('o' if self.genero == 'M' else 'a')
+        return Aluno.REPROVADO
 
-        if self.aprovado() == -1: 
+    def fancy_situacao(self, disciplina):
+        x = 'a' if self.genero == 'F' else 'o'
+
+        if self.situacao(disciplina) == Aluno.SEM_DADOS:
             return ''
-        
-        return f'Aprovad{x}' if self.aprovado() else f'Reprovad{x}'
+
+        if self.situacao(disciplina) == Aluno.APROVADO:
+            return f'Aprovad{x}'
+
+        return f'Reprovad{x}'
 
     def media_geral(self):
         if not self.notas:
@@ -49,7 +63,7 @@ class Aluno:
             else:
                 str_nota = f"{nota:>4.2f}"
 
-            print(f"{disciplina:<12} {str_nota}")
+            print(f"{trunca(disciplina, 12):<12} {str_nota}")
 
     def __str__(self):
         return f'{self.nome}, {self.genero}, {self.matricula}'

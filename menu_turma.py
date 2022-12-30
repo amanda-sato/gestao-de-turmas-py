@@ -1,10 +1,13 @@
 import glob
 import os
 from os import system
+from aluno import Aluno
 from menu_aluno import menu_alunos
 from turma import Turma
 from dados import turmas, turmas_deletadas, disciplinas
 import sys
+
+from utils import trunca
 
 def menu_turma():
     opcao = ""
@@ -12,16 +15,17 @@ def menu_turma():
     while opcao != "0":
         print("\n*******************************")
         print("Menu Turmas: \n")
-        print("1) Adicionar Turma")
-        print("2) Remover Turma")
-        print("3) Listar turmas")
-        print("4) Editar Turma ")
-        print("5) Relação de alunos aprovados e reprovados")
-        print("6) Média geral por aluno")
-        print("7) Administrar alunos")
-        print("8) Salvar alterações")
-        print("9) Retornar ao menu anterior")
-        print("0) Encerrar programa")
+        print("1)  Adicionar Turma")
+        print("2)  Remover Turma")
+        print("3)  Listar turmas")
+        print("4)  Editar Turma ")
+        print("5)  Relação de alunos aprovados e reprovados")
+        print("6)  Média geral por aluno")
+        print("7)  Taxa de aprovação por disciplina")
+        print("8)  Administrar alunos")
+        print("9)  Salvar alterações")
+        print("10) Retornar ao menu anterior")
+        print("0)  Encerrar programa")
         print("*******************************")
 
         opcao = input("\nOpção: ")
@@ -39,12 +43,14 @@ def menu_turma():
             relacao_de_aprovados(turmas)
         elif opcao == "6":
             media_geral_por_aluno()
-        elif opcao == "7" and not turmas_vazia():
+        elif opcao == "7":
+            taxa_de_aprovacao()
+        elif opcao == "8" and not turmas_vazia():
             indice = selecionar_turma()
             menu_alunos(turmas[indice])
-        elif opcao == "8":
-            salvar_turmas()
         elif opcao == "9":
+            salvar_turmas()
+        elif opcao == "10":
             guardar_alteracoes = input("Guardar alterações (s/n)? ").lower() == 's'
 
             if guardar_alteracoes:
@@ -150,8 +156,8 @@ def media_geral_por_aluno():
                 media = f"{'':>10}"
             else:
                 media = f"{aluno.media_geral():>10.2f}"
-            
-            print(f"{turma.id_turma:<8} {aluno.nome:>17} {media}")
+
+            print(f"{trunca(turma.id_turma, 8):<8} {trunca(aluno.nome):>17} {media}")
 
 def relacao_de_aprovados():
     formato = '{:<12} {:>12} {:>20} {:>12}'
@@ -165,5 +171,29 @@ def relacao_de_aprovados():
                     disciplina,
                     turma.id_turma,
                     aluno.nome,
-                    aluno.situacao(disciplina)
+                    aluno.fancy_situacao(disciplina)
                 ))
+
+def taxa_de_aprovacao():
+    print(f"{'Disciplina':<15} {'% aprovados':>15} {'% reprovados':>15} {'% não informados':>15}")
+    print(f"{'----':<15} {'----':>15} {'----':>15} {'----':>15}")
+
+    for disciplina in disciplinas:
+        sumario = {
+            Aluno.SEM_DADOS: 0,
+            Aluno.APROVADO: 0,
+            Aluno.REPROVADO: 0,
+        }
+
+        total = 0
+
+        for turma in turmas:
+            total += len(turma.alunos)
+
+            for aluno in turma.alunos:
+                sumario[aluno.situacao(disciplina)] += 1
+
+        for situacao, contagem in sumario.items():
+            sumario[situacao] = contagem / total
+
+        print(f"{trunca(disciplina, 15):<15} {sumario[Aluno.APROVADO]:>15.2%} {sumario[Aluno.REPROVADO]:>15.2%} {sumario[Aluno.SEM_DADOS]:>15.2%}")
