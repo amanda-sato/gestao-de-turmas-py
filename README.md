@@ -10,7 +10,7 @@
 - [x] Separar arquivos
 - [x] Listar relação de alunos aprovados/reprovados
 - [x] Média geral por aluno
+- [x] Implementar __delitem__ no grade.py (classe grade)
+- [x] Exit global (Botão do pânico ⚠️💀⚠️)
 - [ ] Apresentar, de forma automática, taxas de reprovação p/ cada disciplina
-- [ ] Exit global (Botão do pânico ⚠️💀⚠️)
-- [ ] Fazer tratamento de erros][
-- [ ] Implementar __delitem__ no grade.py (classe grade)
+- [ ] Fazer tratamento de erros

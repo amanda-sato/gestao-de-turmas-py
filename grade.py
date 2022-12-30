@@ -47,8 +47,11 @@ class Grade:
         return len(self.disciplinas)
 
     def __str__(self):
-        return "\n".join(f"{i + 1}- {d}" for i, d in enumerate(self.disciplinas))
+        return "\n".join(f"{i + 1} - {d}" for i, d in enumerate(self.disciplinas))
 
     def __repr__(self):
         return f"Disciplina(id={self.id}, disciplinas={self.disciplinas})"
+
+    def __delitem__(self, indice):
+        del self.disciplinas[indice]
 

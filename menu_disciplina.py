@@ -97,4 +97,4 @@ def remove_disciplina():
         del disciplinas[indice]
 
     print("\nNova lista de alunos: \n")
-    disciplinas.mostrar()
+    listar_disciplinas()
