@@ -5,3 +5,4 @@ Fabiana | F | B0000#004 | {}
 Joana D'Arc | F | B0000#005 | {'Matemática': 5.0, 'História': 3.0, 'Geografia': 4.0, 'Ed. Física': 20.0, 'Inglês': 15.0}
 Elsa | F | B0000#006 | {}
 João Pé de Feijão | M | B0000#007 | {}
+Maxii | M | B0000#008 | {'Ed. Física': 14.0, 'Matemática': 11.0, 'História': 16.0, 'Geografia': 19.0, 'Inglês': 17.0, 'Programação': 18.0}

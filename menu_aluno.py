@@ -40,6 +40,7 @@ def menu_alunos(turma):
 
             if guardar_alteracoes:
                 turma.salvar()
+            return
         elif opcao == "0":
             guardar_alteracoes = input("Guardar alterações (s/n)? ").lower() == 's'
 
@@ -120,7 +121,7 @@ def menu_notas(aluno):
         if opcao == "1":
             informar_nota(aluno)
         elif opcao == "2":
-            informar_nota(aluno)
+            informar_nota(aluno) #A função de adição é a mesma de inclusão, então foi repetida
         elif opcao == "3":
             aluno.imprimir_notas(disciplinas)
         elif opcao == "0":
@@ -129,11 +130,11 @@ def menu_notas(aluno):
             print("ERRO!!! Escolha uma opção válida")
 
 def informar_nota(aluno):
-    indice = selecionar_disciplina()
+    indice = selecionar_disciplina(lambda: aluno.imprimir_notas(disciplinas))
 
     nota = float(input("Indique a nota: "))
 
-    while nota < 0 or nota >= 20:
+    while nota < 0 or nota > 20:
         nota = float(input("Indique a nota: "))
 
     aluno.add_nota(disciplinas[indice], nota)

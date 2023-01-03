@@ -1,1 +1,2 @@
 Meu loiro | M | C0000#001 | {}
+Rex | M | C0000#002 | {'Matemática': 20.0, 'Programação': 18.0}

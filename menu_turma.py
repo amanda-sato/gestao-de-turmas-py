@@ -40,7 +40,7 @@ def menu_turma():
         elif opcao == "4":
             editar_turma()
         elif opcao == "5":
-            relacao_de_aprovados(turmas)
+            relacao_de_aprovados()
         elif opcao == "6":
             media_geral_por_aluno()
         elif opcao == "7":
@@ -152,7 +152,7 @@ def media_geral_por_aluno():
             else:
                 media = f"{aluno.media_geral():>10.2f}"
 
-            print(f"{trunca(turma.id_turma, 8):<8} {trunca(aluno.nome):>17} {media}")
+            print(f"{trunca(turma.id_turma, 8):<8} {trunca(aluno.nome, 17):>17} {media}")
 
 def relacao_de_aprovados():
     formato = '{:<12} {:>12} {:>20} {:>12}'

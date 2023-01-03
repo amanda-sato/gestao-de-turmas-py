@@ -52,10 +52,17 @@ def editar_disciplina():
 
     disciplinas[indice] = nome
 
-def selecionar_disciplina():
+
+def listar_disciplinas():
     if disciplinas_vazia(): return
 
-    listar_disciplinas()
+    print('Disciplinas:')
+    print(disciplinas)
+
+def selecionar_disciplina(impressao = listar_disciplinas):
+    if disciplinas_vazia(): return
+
+    impressao()
 
     indice = int(input('Indique a disciplina: ')) - 1
 
@@ -64,11 +71,7 @@ def selecionar_disciplina():
 
     return indice
 
-def listar_disciplinas():
-    if disciplinas_vazia(): return
 
-    print('Disciplinas:')
-    print(disciplinas)
 
 def disciplinas_vazia():
     if len(disciplinas) <= 0:

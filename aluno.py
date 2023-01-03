@@ -52,10 +52,10 @@ class Aluno:
     def imprimir_notas(self, grade = None):
         disciplinas = self.notas.keys() if grade is None else grade
 
-        print("{:<12} {:>4}".format("Disciplinas", "Notas"))
-        print("{:<12} {:>4}".format("-----", "----"))
+        print("{:<17} {:>4}".format("Disciplinas", "Notas"))
+        print("{:<17} {:>4}".format("-----", "----"))
 
-        for disciplina in disciplinas:
+        for indice, disciplina in enumerate(disciplinas):
             nota = self.notas.get(disciplina, '')
 
             if isinstance(nota, str):
@@ -63,7 +63,8 @@ class Aluno:
             else:
                 str_nota = f"{nota:>4.2f}"
 
-            print(f"{trunca(disciplina, 12):<12} {str_nota}")
+            str_disciplina = trunca(f"{indice + 1} - {disciplina}", 17)
+            print(f"{str_disciplina:<17} {str_nota}")
 
     def __str__(self):
         return f'{self.nome}, {self.genero}, {self.matricula}'
