@@ -3,6 +3,7 @@ import sys
 from aluno import Aluno
 from menu_disciplina import selecionar_disciplina
 from menu_disciplina import disciplinas
+from utils import safe_input
 
 def menu_alunos(turma):
     opcao = ""
@@ -13,7 +14,7 @@ def menu_alunos(turma):
         print("1) Adicionar Aluno")
         print("2) Remover Aluno")
         print("3) Mostrar lista de alunos")
-        print("4) Qual aluno deseja editar as informações? ")
+        print("4) Editar Aluno")
         print("5) Administrar notas")
         print("6) Retornar ao menu de turmas")
         print("0) Encerrar programa")
@@ -32,9 +33,13 @@ def menu_alunos(turma):
             editar_aluno(turma)
         elif opcao == "5":
             turma.mostrar()
-            indice = int(input("\nIndique o aluno? ")) - 1
-            aluno = turma.get_aluno(indice)
-            menu_notas(aluno)
+            indice = safe_input("\nIndique o aluno? ", int, -1) - 1
+
+            if indice < 0 or indice > len(turma.alunos):
+                print("ERRO!!! Escolha uma opção válida")
+            else:
+                aluno = turma.get_aluno(indice)
+                menu_notas(aluno)
         elif opcao == "6":
             guardar_alteracoes = input("Guardar alterações (s/n)? ").lower() == 's'
 
@@ -68,7 +73,7 @@ def add_aluno(turma):
 def remove_aluno(turma):
     turma.mostrar()
 
-    indice = int(input("\nQual o aluno quer deletar as informações? ")) -1
+    indice = safe_input("\nQual o aluno quer deletar as informações? ", int, -1) - 1
 
     if indice < 0 or indice >= len(turma.alunos):
         print("Erro! Digite uma opção válida")
@@ -81,7 +86,7 @@ def remove_aluno(turma):
 def editar_aluno(turma):
     turma.mostrar()
 
-    indice = int(input("\nQual o aluno quer editar as informações? ")) - 1
+    indice = safe_input("\nQual o aluno quer editar as informações? ", int, -1) - 1
     old_aluno = turma.get_aluno(indice)
 
     if indice < 0 or indice >= len(turma.alunos):
@@ -132,9 +137,9 @@ def menu_notas(aluno):
 def informar_nota(aluno):
     indice = selecionar_disciplina(lambda: aluno.imprimir_notas(disciplinas))
 
-    nota = float(input("Indique a nota: "))
+    nota = safe_input("Indique a nota: ", float, -1)
 
     while nota < 0 or nota > 20:
-        nota = float(input("Indique a nota: "))
+        nota = safe_input("Indique a nota: ", float, -1)
 
     aluno.add_nota(disciplinas[indice], nota)

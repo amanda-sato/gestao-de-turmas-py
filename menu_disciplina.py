@@ -2,6 +2,8 @@ from os import system
 from dados import disciplinas
 import sys
 
+from utils import safe_input
+
 def menu_disciplinas():
     opcao = ""
     while opcao != "0":
@@ -64,10 +66,10 @@ def selecionar_disciplina(impressao = listar_disciplinas):
 
     impressao()
 
-    indice = int(input('Indique a disciplina: ')) - 1
+    indice = safe_input('Indique a disciplina: ', int, -1) - 1
 
     while indice < 0 or indice >= len(disciplinas):
-        indice = int(input('Indique a disciplina: ')) - 1
+        indice = safe_input('Indique a disciplina: ', int, -1) - 1
 
     return indice
 
@@ -86,7 +88,7 @@ def carregar_disciplinas():
 def remove_disciplina():
     listar_disciplinas()
 
-    indice = int(input("\nQual a disciplina quer deletar as informações? ")) -1
+    indice = safe_input("\nQual a disciplina quer deletar as informações? ", int, -1) - 1
 
     if indice < 0 or indice >= len(disciplinas):
         print("Erro! Digite uma opção válida")

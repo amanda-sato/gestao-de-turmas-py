@@ -7,7 +7,7 @@ from turma import Turma
 from dados import turmas, turmas_deletadas, disciplinas
 import sys
 
-from utils import trunca
+from utils import safe_input, trunca
 
 def menu_turma():
     opcao = ""
@@ -127,10 +127,10 @@ def selecionar_turma():
 
     listar_turmas()
 
-    indice = int(input('Indique a turma: ')) - 1
+    indice = safe_input('Indique a turma: ', int, -1) - 1
 
     while indice < 0 or indice >= len(turmas):
-        indice = int(input('Indique a turma: ')) - 1
+        indice = safe_input('Indique a turma: ', int, -1) - 1
 
     return indice
 
