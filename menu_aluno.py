@@ -91,7 +91,7 @@ def editar_aluno(turma):
         n = input("Nome: ")
         g = informar_genero()
 
-        turma.edit(indice, Aluno(n, g, old_aluno.matricula))
+        turma.edit(indice, Aluno(n, g, old_aluno.matricula, old_aluno.notas))
 
         print("\nNova lista de alunos: \n")
         turma.mostrar()
