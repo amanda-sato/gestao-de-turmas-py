@@ -1,5 +1,5 @@
 from os import system
-from dados import disciplinas
+from dados import disciplinas, turmas
 import sys
 
 from utils import safe_input
@@ -52,8 +52,14 @@ def editar_disciplina():
     indice = selecionar_disciplina()
     nome = input("Indique o nome da disciplina: ")
 
+    old_nome = disciplinas[indice]
     disciplinas[indice] = nome
 
+    for turma in turmas:
+        for aluno in turma.alunos:
+            if old_nome in aluno.notas:
+                aluno.notas[nome] = aluno.notas[old_nome]
+                del aluno.notas[old_nome]
 
 def listar_disciplinas():
     if disciplinas_vazia(): return
@@ -90,12 +96,19 @@ def remove_disciplina():
 
     indice = safe_input("\nQual a disciplina quer deletar as informações? ", int, -1) - 1
 
+
     if indice < 0 or indice >= len(disciplinas):
         print("Erro! Digite uma opção válida")
     else:
+        nome = disciplinas[indice]
         del disciplinas[indice]
+    
+    for turma in turmas:
+        for aluno in turma.alunos:
+            if nome in aluno.notas:
+                del aluno.notas[nome]
 
-    print("\nNova lista de alunos: \n")
+    print("\nNova lista disciplinas: \n")
     listar_disciplinas()
 
 def guardar_alteracoes():

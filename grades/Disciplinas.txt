@@ -1,6 +1,5 @@
 Matemática
-História
-Geografia
-Ed. Física
+História Geral
+Artes
+Administração
 Inglês
-Programação

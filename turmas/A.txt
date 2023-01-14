@@ -1,5 +1,5 @@
-Amanda | F | A0000#001 | {'Matemática': 20.0, 'História': 20.0, 'Geografia': 16.0, 'Ed. Física': 16.0, 'Inglês': 19.0, 'Programação': 18.0}
-Leo | M | A0000#002 | {'Matemática': 20, 'História': 17, 'Geografia': 14, 'Ed. Física': 12, 'Inglês': 20}
-Max | M | A0000#003 | {'Matemática': 11, 'História': 14, 'Geografia': 10, 'Ed. Física': 10, 'Inglês': 10}
+Amanda | F | A0000#001 | {'Matemática': 20.0, 'Geografia': 16.0, 'Ed. Física': 16.0, 'Inglês': 19.0, 'História Geral': 20.0}
+Leo | M | A0000#002 | {'Matemática': 20, 'Geografia': 14, 'Ed. Física': 12, 'Inglês': 20, 'História Geral': 17}
+Max | M | A0000#003 | {'Matemática': 11, 'Geografia': 10, 'Ed. Física': 10, 'Inglês': 10, 'História Geral': 14}
 Ana | F | A0000#004 | {}
-Henrique | M | A0000#005 | {'Matemática': 6.0, 'História': 2.0, 'Inglês': 17.0, 'Programação': 15.0}
+Henrique | M | A0000#005 | {'Matemática': 6.0, 'Inglês': 17.0, 'História Geral': 2.0}
