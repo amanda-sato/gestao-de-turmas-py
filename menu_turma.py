@@ -129,7 +129,7 @@ def selecionar_turma():
 
     indice = int(input('Indique a turma: ')) - 1
 
-    while indice < 0 or indice >= len(disciplinas):
+    while indice < 0 or indice >= len(turmas):
         indice = int(input('Indique a turma: ')) - 1
 
     return indice
