@@ -1,5 +1,8 @@
 # Gestão de turmas PY
 
+Program created to manage classes at Schools or Colleges
+
+
 ## Como executar
 
 A partir da pasta raiz do repositório, execute (requer o python 3):
